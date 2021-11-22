@@ -23,6 +23,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.text
+    group = models.ForeignKey(
+        Group, on_delete=models.CASCADE,
+        related_name='posts', blank=True, null=True
+    )
 
 
 class Comment(models.Model):
