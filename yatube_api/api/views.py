@@ -21,7 +21,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
-        return Response(status=status.HTTP_200_OK)
 
 
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
