@@ -43,6 +43,7 @@ class FollowViewSet(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     filter_backends = (SearchFilter,)
     search_fields = ('following__username',)
+    permission_classes = (AuthorPermission,)
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user.username)
