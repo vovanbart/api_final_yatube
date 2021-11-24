@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from posts.models import Group, Post, Follow
+from posts.models import Group, Post, Follow, User
 from .serializers import CommentSerializer, GroupSerializer, PostSerializer
 from .serializers import FollowSerializer
 from .permissions import AuthorPermission
@@ -39,14 +39,14 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 class FollowViewSet(viewsets.ModelViewSet):
-    queryset = Follow.objects.all()
-    permission_classes = [AuthorPermission, ]
     serializer_class = FollowSerializer
-    filter_backends = [SearchFilter, ]
-    search_fields = ['user', 'following', ]
+    queryset = Follow.objects.all()
+    filter_backends = (SearchFilter,)
+    search_fields = ('following__username',)
 
     def get_queryset(self):
-        return Follow.objects.all()
+        user = get_object_or_404(User, username=self.request.user.username)
+        return user.follower
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
