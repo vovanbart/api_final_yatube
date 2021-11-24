@@ -7,8 +7,6 @@ from .serializers import FollowSerializer
 from .permissions import AuthorPermission
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework import status
-from requests import Response
 
 
 class PostViewSet(viewsets.ModelViewSet):
