@@ -1,6 +1,6 @@
 import pytest
 
-from posts.models import Post
+from yatube_api.posts.models import Post
 
 
 class TestPostAPI:

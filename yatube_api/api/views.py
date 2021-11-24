@@ -7,6 +7,8 @@ from .serializers import FollowSerializer
 from .permissions import AuthorPermission
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework import status
+from requests import Response
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -19,6 +21,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+        return Response(status=status.HTTP_200_OK)
 
 
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
@@ -32,7 +35,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
-        return post.comments.all()
+        return post.comments.all() and Response(status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

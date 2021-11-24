@@ -1,6 +1,6 @@
 import pytest
 
-from posts.models import Comment
+from yatube_api.posts.models import Comment
 
 
 class TestCommentAPI:

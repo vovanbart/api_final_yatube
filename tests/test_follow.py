@@ -1,6 +1,6 @@
 import pytest
 
-from posts.models import Follow
+from yatube_api.posts.models import Follow
 
 
 class TestFollowAPI:
