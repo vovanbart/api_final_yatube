@@ -7,7 +7,6 @@ from .serializers import FollowSerializer
 from .permissions import AuthorPermission
 from rest_framework.filters import SearchFilter
 from rest_framework.mixins import CreateModelMixin, ListModelMixin
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 
 
@@ -41,7 +40,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 class FollowViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     queryset = Follow.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly, ]
+    permission_classes = [AuthorPermission, ]
     serializer_class = FollowSerializer
     filter_backends = [SearchFilter, ]
     search_fields = ['=user__username', '=following__username', ]
