@@ -6,8 +6,6 @@ from .serializers import CommentSerializer, GroupSerializer, PostSerializer
 from .serializers import FollowSerializer
 from .permissions import AuthorPermission
 from rest_framework.filters import SearchFilter
-from rest_framework.mixins import CreateModelMixin, ListModelMixin
-from rest_framework.viewsets import GenericViewSet
 
 
 class PostViewSet(viewsets.ModelViewSet):
