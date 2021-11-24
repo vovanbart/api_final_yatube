@@ -11,7 +11,7 @@ v1_router.register(r'^posts',
 v1_router.register(r'^posts/(?P<post_id>\d+)/comments',
                    CommentViewSet,
                    basename='comment')
-v1_router.register(r'^group',
+v1_router.register(r'^groups',
                    GroupViewSet,
                    basename='group')
 v1_router.register(r'^follow',
