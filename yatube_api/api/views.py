@@ -7,6 +7,7 @@ from .serializers import FollowSerializer
 from .permissions import AuthorPermission
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -43,7 +44,7 @@ class FollowViewSet(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     filter_backends = (SearchFilter,)
     search_fields = ('following__username',)
-    permission_classes = (AuthorPermission,)
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user.username)
