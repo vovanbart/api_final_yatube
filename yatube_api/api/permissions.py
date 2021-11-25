@@ -4,7 +4,8 @@ from rest_framework import permissions
 class AuthorPermission(permissions.IsAuthenticated):
 
     def has_permission(self, request, view):
-        if request.user.is_authenticated:
+        if (request.user.is_authenticated
+           or request.method in permissions.SAFE_METHODS):
             return True
         return False
 
