@@ -35,8 +35,8 @@ class GroupSerializer(serializers.ModelSerializer):
 
 class FollowSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(slug_field='username', read_only=True)
-    author = serializers.SlugRelatedField(slug_field='username',
-                                          queryset=User.objects.all())
+    following = serializers.SlugRelatedField(slug_field='username',
+                                             queryset=User.objects.all())
 
     def validate(self, data):
         user = get_object_or_404(User, username=data['following'].username)
