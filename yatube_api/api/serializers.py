@@ -45,21 +45,14 @@ class FollowSerializer(serializers.ModelSerializer):
         user = get_object_or_404(User, username=data['following'].username)
         if user == self.context['request'].user:
             raise serializers.ValidationError('Вы не можете подписаться')
-        if Follow.objects.filter(
-            user=User.objects.get(username=self.context['request'].user),
-            following=User.objects.get(username=data['following'])
-        ).exists():
-            raise serializers.ValidationError(
-                'Вы уже подписались'
-            )
         return data
 
     class Meta:
         model = Follow
         fields = ('user', 'following')
         read_only_fields = ('id', 'user')
-        validators = [
+        validators = (
             UniqueTogetherValidator(
                 queryset=Follow.objects.all(),
-                fields=['user', 'following']
-            ), ]
+                fields=('user', 'following', )
+            ), )
